@@ -1,4 +1,4 @@
-#Library Demo 
+# Library Demo 
 
 Note: In order to pass the challenge you MUST create a site that runs!
 If it doesn't run you don't pass the challenge even if everything else is perfect.
@@ -16,10 +16,10 @@ In the library, there is only one copy of each book. You will create the followi
 - Return a book
 The navigation bar should show on all pages, highlighting the page that the user is currently on. 
  
-###Listing books:
+### Listing books:
 Show a list of all books, and indicate whether they have been borrowed or not.  
  
-###Adding books: 
+### Adding books: 
 To add a book, you must enter the following information about it: 
 - Title (required)
 - Author (required)
@@ -29,15 +29,15 @@ To add a book, you must enter the following information about it:
 
 You must include optional fields in this project. The field is optional because a user may choose not to enter data into it. 
  
-###Borrowing books
+### Borrowing books
 Show a list of available books, and allow a user to borrow the book. Once the user has borrowed the book, show a message at the top of the page to indicate that the book has been borrowed. 
  
-###Returning books
+### Returning books
 Show a list of borrowed books, and allow a user to return the book. Once the user has returned the book, show a message at the top of the page to indicate that the book has been returned. 
  
-#####Use Bootstrap 4 for your website. 
+##### Use Bootstrap 4 for your website. 
 
-###DONE ALREADY (Bonus)? - 2 points for each item
+### DONE ALREADY (Bonus)? - 2 points for each item
 - Display a default image of a book if a url has not been given
 - Add a timestamp which automatically updates the record of when a book was last borrowed. 
 - Create a historic record of borrowed books 
