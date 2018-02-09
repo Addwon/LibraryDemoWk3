@@ -46,8 +46,3 @@ Show a list of borrowed books, and allow a user to return the book. Once the use
        Clicking on an item in this list should allow you to see the borrowing history of that particular book. 
 -  Create a Cloudinary account and upload your images.  - 10 extra points
 - Deploy your application to Heroku. - 10 extra points
- 
- 
- 
- 
- 
