@@ -1,24 +1,36 @@
 package me.afua.librarydemo;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Range;
+import org.hibernate.validator.constraints.URL;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-public class Book {
+public class Book implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @NotEmpty
     private String title;
 
+    @NotEmpty
     private String author;
 
+    @URL
     private String image;
+
+
+    //@Range(min=4,max=4)
+    @NotNull
+    private long yearPub;
 
     private String ISBN;
 
@@ -95,8 +107,18 @@ public class Book {
     public void setBorrowedtimes(int borrrowedtimes) {
         this.borrowedtimes = borrrowedtimes;
     }
+
+    public long getYearPub() {
+        return yearPub;
+    }
+
+    public void setYearPub(long yearPub) {
+        this.yearPub = yearPub;
+    }
+
     public void addToBorrowed()
     {
         this.borrowedtimes+=1;
     }
+
 }

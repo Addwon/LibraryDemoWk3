@@ -19,18 +19,32 @@
 <form th:action="@{/addbook}" th:object="${aBook}" th:method="post">
 
     <div class="form-group">
+        <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span><br/>
         <label for="booktitle">Book Title</label>
-        <input type="email" class="form-control" id="booktitle" aria-describedby="emailHelp" placeholder="Enter the title of the book"/>
+        <input type="text" th:field="*{title}" class="form-control" id="booktitle" aria-describedby="emailHelp" placeholder="Book title"/>
     </div>
     <div class="form-group">
-        <label for="bookauthor">Author</label>
-        <input type="email" class="form-control" id="bookauthor" aria-describedby="emailHelp" placeholder="Enter the author's full name"/>
+        <span th:if="${#fields.hasErrors('author')}" th:errors="*{author}"></span><br/>
+        <label for="bookauthor">Author: </label>
+        <input type="text" th:field="*{author}" class="form-control" id="bookauthor" aria-describedby="emailHelp" placeholder="Author's full name"/>
     </div>
+    <div class="form-group">
+        <span th:if="${#fields.hasErrors('yearPub')}" th:errors="*{yearPub}"></span><br/>
+        <label for="pubyear">Year of Publication</label>
+        <input type="number" th:field="*{yearPub}" class="form-control" id="pubyear" aria-describedby="yearPubHelp" placeholder="Year of Publication"/>
+        <small class="form-text text-muted" id="yearPubHelp"> </small>
+    </div>
+    <div class="form-group">
+        <label for="isbn">ISBN</label>
+        <input type="text" class="form-control" id="isbn" aria-describedby="isbnHelp" placeholder="ISBN Number"/>
+        <small class="form-text text-muted" id="isbnHelp">Enter an ISBN number </small>
+    </div>
+
 
     <div class="form-group">
         <label for="bookimage">Image link</label>
-        <input type="url" class="form-control" id="bookimage" aria-describedby="emailHelp" placeholder="Enter image link"/>
-        <small class="form-text text-muted">Enter a url to the image you want to display for the cover. <br/> A default image will be used if you do not enter a url </small>
+        <input type="url" th:field="*{image}" class="form-control" id="bookimage" aria-describedby="urlHelp" placeholder="Enter image link"/>
+        <small class="form-text text-muted" id="urlHelp">Enter the url of an image you would like to use for this book </small>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>

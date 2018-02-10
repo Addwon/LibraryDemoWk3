@@ -3,12 +3,12 @@ package me.afua.librarydemo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.Date;
 
 @Controller
@@ -190,9 +190,26 @@ public class MainController {
     }
 
     @GetMapping("/add")
-    public String showAddBookForm()
+    public String showAddBookForm(Model model)
     {
+        model.addAttribute("aBook",new Book());
         return "add";
+    }
+
+    @PostMapping("/addbook")
+    public String addABook(@Valid@ModelAttribute("aBook") Book bookToSave, BindingResult result)
+    {
+        if(!result.hasErrors())
+        {
+            bookRepo.save(bookToSave);
+            return "redirect:/listbooks";
+        }
+
+        else{
+            System.out.println("Year of publication"+bookToSave.getYearPub());
+            return "add";
+        }
+
     }
 
 }

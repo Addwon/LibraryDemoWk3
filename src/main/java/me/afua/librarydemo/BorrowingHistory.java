@@ -6,6 +6,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -19,6 +20,7 @@ public class BorrowingHistory {
     private long id;
 
     @OneToOne
+    @Valid
     private Book aBook;
 
     private String description;
@@ -27,6 +29,7 @@ public class BorrowingHistory {
       From the documentation: The property value will be set to the current VM date exactly once when
       saving the owning entity for the first time.
     */
+
     @CreationTimestamp
     private java.sql.Timestamp createdDate;
 
