@@ -27,8 +27,6 @@ public class Book implements Serializable {
     @URL
     private String image;
 
-
-    //@Range(min=4,max=4)
     @NotNull
     private long yearPub;
 
