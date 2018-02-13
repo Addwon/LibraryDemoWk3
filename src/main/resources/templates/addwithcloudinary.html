@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+</head>
+<body>
+<!-- Change the Navbar into a fragment, and make the class active depending on the variable passed -->
+
+<div th:replace="libtemplates/libtemplatemain::activenavbarfragement('add')">
+</div>
+
+<div class="col-md-4 offset-md-4">
+    <h3>Add a book to the JBC library</h3>
+<form th:action="@{/addwithcloudinary}" th:object="${aBook}" th:method="post" enctype="multipart/form-data">
+
+    <div class="form-group">
+        <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span><br/>
+        <label for="booktitle">Book Title</label>
+        <input type="text" th:field="*{title}" class="form-control" id="booktitle" aria-describedby="emailHelp" placeholder="Book title"/>
+    </div>
+    <div class="form-group">
+        <span th:if="${#fields.hasErrors('author')}" th:errors="*{author}"></span><br/>
+        <label for="bookauthor">Author: </label>
+        <input type="text" th:field="*{author}" class="form-control" id="bookauthor" aria-describedby="emailHelp" placeholder="Author's full name"/>
+    </div>
+    <div class="form-group">
+        <span th:if="${#fields.hasErrors('yearPub')}" th:errors="*{yearPub}"></span><br/>
+        <label for="pubyear">Year of Publication</label>
+        <input type="number" th:field="*{yearPub}" class="form-control" id="pubyear" aria-describedby="yearPubHelp" placeholder="Year of Publication"/>
+        <small class="form-text text-muted" id="yearPubHelp"> </small>
+    </div>
+    <div class="form-group">
+        <label for="isbn">ISBN</label>
+        <input type="text"  class="form-control" id="isbn" aria-describedby="isbnHelp" placeholder="ISBN Number"/>
+        <small class="form-text text-muted" id="isbnHelp">Enter an ISBN number </small>
+    </div>
+
+
+    <div class="form-group">
+        <label for="bookimage">Image link</label>
+        <input type="file" name="file" id="bookimage" aria-describedby="urlHelp" placeholder="Enter image link"/>
+        <small class="form-text text-muted" id="urlHelp">Enter the url of an image you would like to use for this book </small>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

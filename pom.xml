@@ -45,12 +45,11 @@
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-validation -->
+		<!-- Include this for 'extended' annotations like range. See ValidationMessages.properties and Book class for usage example-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
-
-
 
 		<!--<dependency>-->
 			<!--<groupId>mysql</groupId>-->
@@ -62,6 +61,19 @@
 			<!--<artifactId>postgresql</artifactId>-->
 			<!--<scope>runtime</scope>-->
 		<!--</dependency>-->
+
+		<!-- CLOUDINARY-->
+		<dependency>
+			<groupId>com.cloudinary</groupId>
+			<artifactId>cloudinary-taglib</artifactId>
+			<version>1.2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.cloudinary</groupId>
+			<artifactId>cloudinary-http44</artifactId>
+			<version>1.2.1</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>

@@ -1,21 +1,29 @@
 package me.afua.librarydemo;
 
+import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.Date;
+import java.util.Map;
 
 @Controller
 public class MainController {
 
     @Autowired
     BookRepository bookRepo;
+
+    @Autowired
+    CloudinaryConfig cloudc;
 
     @Autowired
     BorrowingHistoryRepo borrowingHistoryRepo;
@@ -36,6 +44,7 @@ public class MainController {
         newBook.setAuthor("Test Author");
         newBook.setImage("https://upload.wikimedia.org/wikipedia/commons/8/8f/Whitby_Abbey_image.jpg");
         newBook.setISBN("ISBN 0-471-19047-0");
+        newBook.setYearPub(2014);
         bookRepo.save(newBook);
 
         newBook = new Book();
@@ -44,12 +53,14 @@ public class MainController {
         newBook.setImage("https://upload.wikimedia.org/wikipedia/commons/3/32/Dreaming_(13687618944).jpg");
         newBook.setISBN("ISBN 0-271-39038-5");
         newBook.setBorrowed(false);
+        newBook.setYearPub(2014);
         bookRepo.save(newBook);
 
         newBook = new Book();
         newBook.setTitle("This is the third book");
         newBook.setAuthor("Test Author Three");
         newBook.setBorrowed(false);
+        newBook.setYearPub(2014);
         bookRepo.save(newBook);
     }
 
@@ -196,6 +207,14 @@ public class MainController {
         return "add";
     }
 
+    @GetMapping("/addwithcloudinary")
+    public String showAddBookWithCloudinaryForm(Model model)
+    {
+        model.addAttribute("aBook",new Book());
+        return "addwithcloudinary";
+    }
+
+
     @PostMapping("/addbook")
     public String addABook(@Valid@ModelAttribute("aBook") Book bookToSave, BindingResult result)
     {
@@ -210,6 +229,41 @@ public class MainController {
             return "add";
         }
 
+    }
+
+    @PostMapping("/addwithcloudinary")
+    public String saveActor(@Valid@ModelAttribute("aBook") Book bookToSave, BindingResult result, MultipartHttpServletRequest request) {
+        MultipartFile f = request.getFile("file");
+        if (f.isEmpty()) {
+            return "add";
+        }
+
+        if(!result.hasErrors())
+        {
+            try {
+
+                Map uploadResult = cloudc.upload(f.getBytes(), ObjectUtils.asMap("resourcetype", "auto"));
+                String uploadURL = (String) uploadResult.get("url");
+                String uploadedName = (String) uploadResult.get("public_id");
+                String transformedImage = cloudc.createUrl(uploadedName);
+                System.out.println(transformedImage);
+                System.out.println("Uploaded:" + uploadURL);
+                System.out.println("Name:" + uploadedName);
+                bookToSave.setImage(transformedImage);
+
+                bookRepo.save(bookToSave);
+
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+                return "redirect:/addactor";
+            }
+            return "redirect:/listbooks";
+        }
+        else{
+            System.out.println("Year of publication"+bookToSave.getYearPub());
+            return "add";
+        }
     }
 
 }
